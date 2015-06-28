@@ -1,0 +1,9 @@
+#!/usr/bin/env python
+__author__ = 'jiasir'
+
+import sys
+import os
+
+args = ' '.join(sys.argv[1:])
+
+os.system('ansible-playbook ' + args)

@@ -1,0 +1,14 @@
+---
+  - name: Install mariadb
+    apt: name={{ item }} update_cache=yes
+    with_items:
+      - mariadb-server 
+      - python-mysqldb
+    retries: 5
+    delay: 2
+  - name: Change root password
+    command: mysqladmin -uroot password {{ mariadb_root_password }}
+  - name: Update /etc/mysql/my.cnf
+    template: src=my.cnf.j2 dest=/etc/mysql/my.cnf
+  - name: Restart mariadb service
+    service: name=mysql state=restarted
